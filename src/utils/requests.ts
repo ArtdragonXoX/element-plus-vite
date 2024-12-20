@@ -2,7 +2,6 @@ import axios, { type AxiosRequestConfig } from "axios";
 import { useAsyncState } from "@vueuse/core";
 import type { ApiResponse } from "@/types/ApiResponse";
 import { ElNotification } from "element-plus";
-import { userStore } from "@/stores/user";
 import type { AxiosRequestConfig2 } from "@/stores/useDefineApi"
 
 
@@ -16,14 +15,10 @@ instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response;
 }, function (error) {
-  const { updateToken, token, clearToken } = userStore();
   // 对响应错误做点什么
   if (error.response && error.response.status === 401) {
-    clearToken();
     if (error.response.data.code === 2) {
       const retryRequestConfig = error.config;
-      updateToken(error.response.data.data);
-      retryRequestConfig.headers['Authorization'] = `Bearer ${token.value}`;
 
       return axios(retryRequestConfig).then(response => {
         return response;
@@ -43,7 +38,7 @@ const _req = async <T>(config: AxiosRequestConfig): Promise<ApiResponse<T> | und
   if (!result.data)
     realData = { code: 0, msg: '请求失败', data: null } as ApiResponse<T>;
   else
-    realData = result.data;
+    realData = result.data as ApiResponse<T>;
   if (realData.code === 0) {
     throw new Error(`Error: ${realData.msg}`);
   }
