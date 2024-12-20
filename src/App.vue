@@ -16,7 +16,7 @@
     justify-content: center;
     align-items: center; /* 垂直居中 */
     overflow: hidden;
-    width: 80%;
+    width: 100%;
     margin: 0 auto; /* 水平居中整个容器 */
 }
 
