@@ -1,7 +1,7 @@
 <template>
     <ElContainer class="app-container">
         <ElMain class="main-content">
-            <RouterView />
+            <RouterView class="router-view" />
         </ElMain>
     </ElContainer>
 </template>
@@ -14,21 +14,25 @@
 .app-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* 垂直居中 */
+    align-items: center;
     overflow: hidden;
-    width: 100%;
-    margin: 0 auto; /* 水平居中整个容器 */
+    width: 100vw; /* 修改为视口宽度 */
+    height: 100vh; /* 修改为视口高度 */
+    margin: 0;
 }
 
 .main-content {
-    width: 100%; /* 确保 ElMain 的宽度为 100% */
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: center; /* 水平居中 RouterView */
-    align-items: center; /* 垂直居中 RouterView */
+    justify-content: center;
+    align-items: center;
 }
 
 .router-view {
-    width: 100%; /* 确保 RouterView 的宽度为 100% */
+    display: flex;
+    height: 100%;
+    width: 100%;
     /* 添加其他必要的样式 */
 }
 </style>
